@@ -1,0 +1,104 @@
+﻿@page "/"
+
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims
+@inject UserManager<IdentityUser> _UserManager
+@inject RoleManager<IdentityRole> _RoleManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime js
+
+<PageTitle>Index</PageTitle>
+
+
+@if (!authenticationStateTask.Result.User.Identity.IsAuthenticated)
+{
+    <div class="alert alert-warning" role="alert">
+        Por favor, inicia sesión para acceder a la plataforma.
+    </div>
+}
+
+<AuthorizeView Roles="Administrador">
+    <Authorized>
+        <h1>Bienvenido Administrador</h1>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Auditor">
+    <Authorized>
+        <h1>Bienvenido Auditor</h1>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Administrador">
+    <Authorized>
+        <span>Admin</span>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Auditor">
+    <Authorized>
+        <span>Auditor</span>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Administrador">
+    <Authorized>
+        <SurveyPrompt Title="" />
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Auditor">
+    <Authorized>
+        <SurveyPrompt Title="" />
+    </Authorized>
+</AuthorizeView>
+
+
+
+
+
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ClaimsPrincipal CurrentUser = (await authenticationStateTask).User;
+        if (CurrentUser!.Identity!.IsAuthenticated)
+        {
+            // NOTE: CurrentUser.Identity.Name =>  user Email used for the registration.
+            string userEmail = CurrentUser.Identity.Name!;
+
+            var user = await _UserManager.FindByNameAsync(userEmail);
+            var getUserRoles = await _UserManager.GetRolesAsync(user!);
+            if (getUserRoles.Count == 0)
+            {
+                var AdminRoleResult = await _RoleManager.FindByNameAsync("Administrador");
+                if (AdminRoleResult == null)
+                {
+                    // This means, Administrator role is not yet created, meaning it has not being assigned to anyone, if so then create it and assign to the current user.
+                    await _RoleManager.CreateAsync(new IdentityRole("Administrador"));
+                    await _UserManager.AddToRoleAsync(user!, "Administrador");
+                    return;
+                }
+                else
+                {
+                    var UserRoleResult = await _RoleManager.FindByNameAsync("Auditor");
+                    if (UserRoleResult == null)
+                    {
+                        await _RoleManager.CreateAsync(new IdentityRole("Auditor"));
+                    }
+                    await _UserManager.AddToRoleAsync(user!, "Auditor");
+                    try { await js.InvokeVoidAsync("alert", $"{user!.Email} se le asigno el rol de {getUserRoles!.FirstOrDefault()}"); } catch { }
+                    return;
+                }
+            }
+            else
+            {// since it blazor server, js doenst work on first call unless second call, first will create the user role so lets read from the second call.
+                try { await js.InvokeVoidAsync("alert", $"{user!.Email} Se le asigno el rol de {getUserRoles!.FirstOrDefault()}"); } catch { }
+            }
+        }
+    }
+}

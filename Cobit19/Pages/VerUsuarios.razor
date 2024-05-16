@@ -1,0 +1,45 @@
+﻿@page "/ver"
+
+@attribute [Authorize(Roles ="Administrador")]
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject UserManager<IdentityUser> _userManager
+
+<h1>Usuarios Registrados</h1>
+
+@if (users != null && users.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre de Usuario</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay usuarios registrados.</p>
+}
+
+@code {
+    private List<IdentityUser> users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await _userManager.Users.ToListAsync();
+    }
+}
