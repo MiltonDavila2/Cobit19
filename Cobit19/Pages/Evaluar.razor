@@ -1,8 +1,83 @@
 ﻿@page "/evaluar"
-@attribute [Authorize(Roles ="Auditor")]
+@using Cobit19.Data
+@inject MetasEmpresarialesService servicioEmpresarial
+@attribute [Authorize(Roles = "Auditor")]
+
 <h3>Evaluar</h3>
 
-<p>En proceso.....</p>
-@code {
+<NavLink class="nav-link" href="/agregarEmpresarial">
+    <span class="oi oi-plus" aria-hidden="true"></span> Añadir Meta de alineamiento
+</NavLink>
 
+<h1>Relacionamiento de Metas Empresariales y Metas de Alineamiento</h1>
+@if (Lista is null)
+{
+    <p><em>Ingrese una meta de alineamiento</em></p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Meta de alineamiento</th>
+                    <th>Portafolio de productos y servicios competitivos</th>
+                    <th>Gestión de riesgo de negocio</th>
+                    <th>Cumplimiento con las leyes y regulaciones externas</th>
+                    <th>Calidad de la información financiera</th>
+                    <th>Cultura de servicio orientada al cliente</th>
+                    <th>Continuidad y disponibilidad del servicio del negocio</th>
+                    <th>Portafolio de productos y servicios competitivos</th>
+                    <th>Calidad de la información sobre gestión</th>
+                    <th>Optimización de la funcionalidad de procesos</th>
+                    <th>Habilidades, motivación y productividad del personal</th>
+                    <th>Cumplimiento de las políticas internas</th>
+                    <th>Gestión de programas de transformación digital</th>
+                    <th>Innovación de productos y negocios</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var meta in Lista)
+                {
+                    <tr>
+                        <td>@meta.MetaAlineamiento</td>
+                        <td>@meta.EG01</td>
+                        <td>@meta.EG02</td>
+                        <td>@meta.EG03</td>
+                        <td>@meta.EG04</td>
+                        <td>@meta.EG05</td>
+                        <td>@meta.EG06</td>
+                        <td>@meta.EG07</td>
+                        <td>@meta.EG08</td>
+                        <td>@meta.EG09</td>
+                        <td>@meta.EG10</td>
+                        <td>@meta.EG11</td>
+                        <td>@meta.EG12</td>
+                        <td>@meta.EG13</td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <a href="/editarTablaEmpresarial/@meta.Id">
+                                    <span class="oi oi-pencil" aria-hidden="true"></span> Editar
+                                </a>
+                                <a href="/eliminarTablaEmpresarial/@meta.Id">
+                                    <span class="oi oi-trash" aria-hidden="true"></span> Eliminar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+@code {
+    List<MetasEmpresariales> Lista;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Lista = await Task.Run(() => servicioEmpresarial.GetMetasEmpresarialesAsync());
+    }
 }

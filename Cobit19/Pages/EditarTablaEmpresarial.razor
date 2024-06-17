@@ -1,0 +1,169 @@
+﻿@page "/editarTablaEmpresarial/{id}"
+@using Cobit19.Data
+@inject MetasEmpresarialesService metasempresarialesService
+@inject NavigationManager NavigationManager
+
+<h2>Editar tabla</h2>
+
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="EG01" class="control-label">EG01</label>
+                <select @bind="@obj.EG01" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG02" class="control-label">EG02</label>
+                <select @bind="@obj.EG02" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG03" class="control-label">EG03</label>
+                <select @bind="@obj.EG03" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG04" class="control-label">EG04</label>
+                <select @bind="@obj.EG04" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG05" class="control-label">EG05</label>
+                <select @bind="@obj.EG05" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG06" class="control-label">EG06</label>
+                <select @bind="@obj.EG06" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG07" class="control-label">EG07</label>
+                <select @bind="@obj.EG07" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG08" class="control-label">EG08</label>
+                <select @bind="@obj.EG08" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG09" class="control-label">EG09</label>
+                <select @bind="@obj.EG09" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG10" class="control-label">EG10</label>
+                <select @bind="@obj.EG10" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG11" class="control-label">EG11</label>
+                <select @bind="@obj.EG11" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG12" class="control-label">EG12</label>
+                <select @bind="@obj.EG12" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="EG13" class="control-label">EG13</label>
+                <select @bind="@obj.EG13" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@ActualizarMetasEmpresarialAqui" value="Actualizar"/>
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancelar" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    MetasEmpresariales obj = new MetasEmpresariales();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        obj= await Task.Run(()=> metasempresarialesService.GetMetasEmpresarialesAsync(Convert.ToInt32(Id)));
+
+
+    }
+
+    protected async void ActualizarMetasEmpresarialAqui()
+    {
+        await metasempresarialesService.ActualizarMetaEmpresarial(obj);
+        NavigationManager.NavigateTo("Evaluar");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Evaluar");
+    }
+
+}

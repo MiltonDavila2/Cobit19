@@ -1,0 +1,186 @@
+﻿@page "/agregarEmpresarial"
+@using Cobit19.Data
+@inject MetasEmpresarialesService metasEmpresarialesService
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Auditor")]
+
+<h3>Agregar Meta de alineamiento</h3>
+
+<hr>
+
+<form>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="MetaAlineamiento" class="control-label">Meta alineamiento</label>
+                <select @bind="@obj.MetaAlineamiento" class="form-control">
+                    <option value="">--Seleccione una meta de alineamiento--</option>
+                    <option value="Cumplimiento y soporte de I&T">Cumplimiento y soporte de I&T</option>
+                    <option value="Gestión de riesgo relacionado con I&T">Gestión de riesgo relacionado con I&T</option>
+                    <option value="Beneficios obtenidos del portafolio de inversiones">Beneficios obtenidos del portafolio de inversiones</option>
+                    <option value="Calidad de la información financiera">Calidad de la información financiera</option>
+                    <option value="Prestación de servicios de I&T">Prestación de servicios de I&T</option>
+                    <option value="Agilidad para convertir los requisitos">Agilidad para convertir los requisitos</option>
+                    <option value="Seguridad de la información">Seguridad de la información</option>
+                    <option value="Habilidad y dar soporte a procesos de negocio">Habilidad y dar soporte a procesos de negocio</option>
+                    <option value="Ejecución de programas dentro del plazo">Ejecución de programas dentro del plazo</option>
+                    <option value="Calidad de la información sobre gestión de I&T">Calidad de la información sobre gestión de I&T</option>
+                    <option value="Cumplimiento de I&T con las políticas internas">Cumplimiento de I&T con las políticas internas</option>
+                    <option value="Personal competente y motivado">Personal competente y motivado</option>
+                    <option value="Conocimiento, experiencia e iniciativas">Conocimiento, experiencia e iniciativas</option>
+                </select>
+
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="EG01" class="control-label">EG01</label>
+                <select @bind="@obj.EG01" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG02" class="control-label">EG02</label>
+                <select @bind="@obj.EG02" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG03" class="control-label">EG03</label>
+                <select @bind="@obj.EG03" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG04" class="control-label">EG04</label>
+                <select @bind="@obj.EG04" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG05" class="control-label">EG05</label>
+                <select @bind="@obj.EG05" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG06" class="control-label">EG06</label>
+                <select @bind="@obj.EG06" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG07" class="control-label">EG07</label>
+                <select @bind="@obj.EG07" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG08" class="control-label">EG08</label>
+                <select @bind="@obj.EG08" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG09" class="control-label">EG09</label>
+                <select @bind="@obj.EG09" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG10" class="control-label">EG10</label>
+                <select @bind="@obj.EG10" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG11" class="control-label">EG11</label>
+                <select @bind="@obj.EG11" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG12" class="control-label">EG12</label>
+                <select @bind="@obj.EG12" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="EG13" class="control-label">EG13</label>
+                <select @bind="@obj.EG13" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CrearMetaEmpresarial" value="Ingresar Datos" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancelar" />
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+
+
+@code {
+    MetasEmpresariales obj = new MetasEmpresariales();
+    protected async void CrearMetaEmpresarial()
+    {
+        await metasEmpresarialesService.InsertarMetaEmpresarialAsync(obj);
+        NavigationManager.NavigateTo("Evaluar");
+
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Evaluar");
+    }
+}
