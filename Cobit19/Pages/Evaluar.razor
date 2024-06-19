@@ -21,19 +21,19 @@ else
             <thead class="table-dark">
                 <tr>
                     <th>Meta de alineamiento</th>
-                    <th>Portafolio de productos y servicios competitivos</th>
-                    <th>Gestión de riesgo de negocio</th>
-                    <th>Cumplimiento con las leyes y regulaciones externas</th>
-                    <th>Calidad de la información financiera</th>
-                    <th>Cultura de servicio orientada al cliente</th>
-                    <th>Continuidad y disponibilidad del servicio del negocio</th>
-                    <th>Portafolio de productos y servicios competitivos</th>
-                    <th>Calidad de la información sobre gestión</th>
-                    <th>Optimización de la funcionalidad de procesos</th>
-                    <th>Habilidades, motivación y productividad del personal</th>
-                    <th>Cumplimiento de las políticas internas</th>
-                    <th>Gestión de programas de transformación digital</th>
-                    <th>Innovación de productos y negocios</th>
+                    <th class="header-col-1" onclick="selectColumn(1)">Portafolio de productos y servicios competitivos</th>
+                    <th class="header-col-2" onclick="selectColumn(2)">Gestión de riesgo de negocio</th>
+                    <th class="header-col-3" onclick="selectColumn(3)">Cumplimiento con las leyes y regulaciones externas</th>
+                    <th class="header-col-4" onclick="selectColumn(4)">Calidad de la información financiera</th>
+                    <th class="header-col-5" onclick="selectColumn(5)">Cultura de servicio orientada al cliente</th>
+                    <th class="header-col-6" onclick="selectColumn(6)">Continuidad y disponibilidad del servicio del negocio</th>
+                    <th class="header-col-7" onclick="selectColumn(7)">Portafolio de productos y servicios competitivos</th>
+                    <th class="header-col-8" onclick="selectColumn(8)">Calidad de la información sobre gestión</th>
+                    <th class="header-col-9" onclick="selectColumn(9)">Optimización de la funcionalidad de procesos</th>
+                    <th class="header-col-10" onclick="selectColumn(10)">Habilidades, motivación y productividad del personal</th>
+                    <th class="header-col-11" onclick="selectColumn(11)">Cumplimiento de las políticas internas</th>
+                    <th class="header-col-12" onclick="selectColumn(12)">Gestión de programas de transformación digital</th>
+                    <th class="header-col-13" onclick="selectColumn(13)">Innovación de productos y negocios</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -42,19 +42,19 @@ else
                 {
                     <tr>
                         <td>@meta.MetaAlineamiento</td>
-                        <td>@meta.EG01</td>
-                        <td>@meta.EG02</td>
-                        <td>@meta.EG03</td>
-                        <td>@meta.EG04</td>
-                        <td>@meta.EG05</td>
-                        <td>@meta.EG06</td>
-                        <td>@meta.EG07</td>
-                        <td>@meta.EG08</td>
-                        <td>@meta.EG09</td>
-                        <td>@meta.EG10</td>
-                        <td>@meta.EG11</td>
-                        <td>@meta.EG12</td>
-                        <td>@meta.EG13</td>
+                        <td class="col-1">@meta.EG01</td>
+                        <td class="col-2">@meta.EG02</td>
+                        <td class="col-3">@meta.EG03</td>
+                        <td class="col-4">@meta.EG04</td>
+                        <td class="col-5">@meta.EG05</td>
+                        <td class="col-6">@meta.EG06</td>
+                        <td class="col-7">@meta.EG07</td>
+                        <td class="col-8">@meta.EG08</td>
+                        <td class="col-9">@meta.EG09</td>
+                        <td class="col-10">@meta.EG10</td>
+                        <td class="col-11">@meta.EG11</td>
+                        <td class="col-12">@meta.EG12</td>
+                        <td class="col-13">@meta.EG13</td>
                         <td>
                             <div class="d-flex justify-content-between">
                                 <a href="/editarTablaEmpresarial/@meta.Id">
@@ -72,6 +72,12 @@ else
     </div>
 }
 
+<!-- Botón para redirigir a otra vista -->
+<div class="mt-3">
+    <NavLink class="btn btn-primary" href="/otraVista">
+        Continuar
+    </NavLink>
+</div>
 
 @code {
     List<MetasEmpresariales> Lista;
@@ -81,3 +87,34 @@ else
         Lista = await Task.Run(() => servicioEmpresarial.GetMetasEmpresarialesAsync());
     }
 }
+
+<script>
+    function selectColumn(colIndex) {
+        let header = document.querySelector('.header-col-' + colIndex);
+        let cells = document.querySelectorAll('.col-' + colIndex);
+
+        let isSelected = header.classList.contains('selected');
+
+        if (isSelected) {
+            header.classList.remove('selected');
+            cells.forEach(cell => cell.classList.remove('selected'));
+        } else {
+            header.classList.add('selected');
+            cells.forEach(cell => cell.classList.add('selected'));
+        }
+    }
+</script>
+
+<style>
+    .selected {
+        background-color: darkslategrey !important; /* Cambia esto por el color que prefieras */
+    }
+
+    th {
+        cursor: pointer;
+    }
+
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: #f5f5f5;
+    }
+</style>
