@@ -1,0 +1,43 @@
+﻿@page "/eliminarTablaAlineamiento/{id}"
+@using Cobit19.Data
+@inject MetasAlineamientoService metasempresarialesService
+@inject NavigationManager NavigationManager
+<h2>Borrar Objetivo de Gobierno</h2>
+<hr />
+<h3>Estas seguro de borrar este Objetivo de Gobierno</h3>
+
+<form>
+
+
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-danger" @onclick="@EliminarMetasEmpresariales" value="Eliminar" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancelar" />
+            </div>
+        </div>
+    </div>
+</form>
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    MetasAlineamiento obj = new MetasAlineamiento();
+
+    protected override async Task OnInitializedAsync()
+    {
+        obj = await Task.Run(() => metasempresarialesService.GetMetasAlineamiento(Convert.ToInt32(Id)));
+    }
+
+    protected async void EliminarMetasEmpresariales()
+    {
+        await metasempresarialesService.BorrarMetasAlineamiento(obj);
+        NavigationManager.NavigateTo("Tablas");
+
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Tablas");
+    }
+}

@@ -1,0 +1,213 @@
+﻿@page "/agregarAlineamiento"
+@using Cobit19.Data
+@inject MetasAlineamientoService metasalineamientoService
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Auditor")]
+
+<h3>Agregar Meta de alineamiento</h3>
+
+<hr>
+
+<form>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="MetaGobierno" class="control-label">Meta Gubernamental</label>
+                <select @bind="@obj.MetaGobierno" class="form-control">
+                    <option value="">--Seleccione una meta de alineamiento--</option>
+                    <option value="Asegurar el establecimiento y el mantenimiento del marco de gobierno">Asegurar el establecimiento y el mantenimiento del marco de gobierno</option>
+                    <option value="Asegurar la obtención de beneficios">Asegurar la obtención de beneficios</option>
+                    <option value="Asegurar la optimización del riesgo">Asegurar la optimización del riesgo</option>
+                    <option value="Asegurar la optimización de los recursos">Asegurar la optimización de los recursos</option>
+                    <option value="Asegurar el compromiso de las partes interesadas">Asegurar el compromiso de las partes interesadas</option>
+                    <option value="Gestionar el marco de gestión de I&T">Gestionar el marco de gestión de I&T</option>
+                    <option value="Gestionar la estrategia">Gestionar la estrategia</option>
+                    <option value="Gestionar la arquitectura empresarial">Gestionar la arquitectura empresarial</option>
+                    <option value="Gestionar la innovación">Gestionar la innovación</option>
+                    <option value="Gestionar el portafolio">Gestionar el portafolio</option>
+                    <option value="Gestionar el presupuesto y los costes">Gestionar el presupuesto y los costes</option>
+                    <option value="Gestionar los recursos humanos">Gestionar los recursos humanos</option>
+                    <option value="Gestionar las relaciones">Gestionar las relaciones</option>
+                    <option value="Gestionar los acuerdos de servicio">Gestionar los acuerdos de servicio</option>
+                    <option value="Gestionar los proveedores">Gestionar los proveedores</option>
+                    <option value="Gestionar la calidad">Gestionar la calidad</option>
+                    <option value="Gestionar el riesgo">Gestionar el riesgo</option>
+                    <option value="Gestionar la seguridad">Gestionar la seguridad</option>
+                    <option value="Gestionar los datos">Gestionar los datos</option>
+                    <option value="Gestionar los programas">Gestionar los programas</option>
+                    <option value="Gestionar la definición de requisitos">Gestionar la definición de requisitos</option>
+                    <option value="Gestionar la identificación y construcción de soluciones">Gestionar la identificación y construcción de soluciones</option>
+                    <option value="Gestionar la disponibilidad">Gestionar la disponibilidad</option>
+                    <option value="Gestionar el cambio organizativo">Gestionar el cambio organizativo</option>
+                    <option value="Gestionar los cambios de TI">Gestionar los cambios de TI</option>
+                    <option value="Gestionar la aceptación y la transición de los cambios de TI">Gestionar la aceptación y la transición de los cambios de TI</option>
+                    <option value="Gestionar el conocimiento">Gestionar el conocimiento</option>
+                    <option value="Gestionar los activos">Gestionar los activos</option>
+                    <option value="Gestionar la configuración">Gestionar la configuración</option>
+                    <option value="Gestionar los proyectos">Gestionar los proyectos</option>
+                    <option value="Gestionar las operaciones">Gestionar las operaciones</option>
+                    <option value="Gestionar las peticiones y los incidentes de servicio">Gestionar las peticiones y los incidentes de servicio</option>
+                    <option value="Gestionar los problemas">Gestionar los problemas</option>
+                    <option value="Gestionar la continuidad">Gestionar la continuidad</option>
+                    <option value="Gestionar los servicios de seguridad">Gestionar los servicios de seguridad</option>
+                    <option value="Gestionar los controles de procesos de negocio">Gestionar los controles de procesos de negocio</option>
+                    <option value="Gestionar la monitorización del desempeño y la conformidad">Gestionar la monitorización del desempeño y la conformidad</option>
+                    <option value="Gestionar el sistema de control interno">Gestionar el sistema de control interno</option>
+                    <option value="Gestionar el cumplimiento de los requisitos externos">Gestionar el cumplimiento de los requisitos externos</option>
+                    <option value="Gestionar el aseguramiento">Gestionar el aseguramiento</option>
+                </select>
+
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="AG01" class="control-label">Cumplimiento y soporte de I&T</label>
+                <select @bind="@obj.AG01" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="AG02" class="control-label">Gestión de riesgo relacionado con I&T</label>
+                <select @bind="@obj.AG02" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG03" class="control-label">Beneficios obtenidos del portafolio de inversiones</label>
+                <select @bind="@obj.AG03" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG04" class="control-label">Calidad de la información financiera</label>
+                <select @bind="@obj.AG04" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG05" class="control-label">Prestación de servicios de I&T</label>
+                <select @bind="@obj.AG05" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG06" class="control-label">Agilidad para convertir los requisitos</label>
+                <select @bind="@obj.AG06" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG07" class="control-label">Seguridad de la información</label>
+                <select @bind="@obj.AG07" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG08" class="control-label">Habilidad y dar soporte a procesos de negocio</label>
+                <select @bind="@obj.AG08" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG09" class="control-label">Ejecución de programas dentro del plazo</label>
+                <select @bind="@obj.AG09" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG10" class="control-label">Calidad de la información sobre gestión de I&T</label>
+                <select @bind="@obj.AG10" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG11" class="control-label">Cumplimiento de I&T con las políticas internas</label>
+                <select @bind="@obj.AG11" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="EG12" class="control-label">Personal competente y motivado</label>
+                <select @bind="@obj.AG12" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="EG13" class="control-label">Conocimiento, experiencia e iniciativas</label>
+                <select @bind="@obj.AG13" class="form-control">
+                    <option value="">Vacio</option>
+                    <option value="P">Primario</option>
+                    <option value="S">Secundario</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CrearMetaEmpresarial" value="Ingresar Datos" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancelar" />
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+
+
+@code {
+    MetasAlineamiento obj = new MetasAlineamiento();
+    protected async void CrearMetaEmpresarial()
+    {
+        await metasalineamientoService.InsertarMetaAlineamientoAsync(obj);
+        NavigationManager.NavigateTo("Tablas");
+
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Tablas");
+    }
+}

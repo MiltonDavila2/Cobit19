@@ -1,6 +1,8 @@
 ﻿@page "/evaluar"
 @using Cobit19.Data
 @inject MetasEmpresarialesService servicioEmpresarial
+@inject MetasAlineamientoService servicioAlineamiento
+@inject NavigationManager Navigation
 @attribute [Authorize(Roles = "Auditor")]
 
 <h3>Evaluar</h3>
@@ -74,47 +76,96 @@ else
 
 
 <div class="mt-3">
-    <NavLink class="btn btn-primary" href="/paginaContinuacion">
+    <NavLink class="btn btn-primary" @onclick="Continuar">
         Continuar
     </NavLink>
 </div>
 
 @code {
     List<MetasEmpresariales> Lista;
+    int totalMetasEmpresariales;
+    int totalMetasAlineamiento;
 
     protected override async Task OnInitializedAsync()
     {
         Lista = await Task.Run(() => servicioEmpresarial.GetMetasEmpresarialesAsync());
+        totalMetasEmpresariales = await servicioEmpresarial.ContarMetasEmpresarialesAsync();
+        totalMetasAlineamiento = await servicioAlineamiento.ContarMetasAlineamientosAsync();
+    }
+
+    private void Continuar()
+    {
+        if(totalMetasEmpresariales != 13)
+        {
+            _ = Js.InvokeVoidAsync("alert", "No se puede continuar, no hay exactamente 13 metas de alineamiento calificadas.");
+        }
+        else if(totalMetasAlineamiento != 40)
+        {
+            _ = Js.InvokeVoidAsync("alert", "No se puede continuar, no hay exactamente 40 metas de gobierno calificadas.");
+        }
     }
 }
+
+@inject IJSRuntime Js;
 
 <script>
     function selectColumn(colIndex) {
         let header = document.querySelector('.header-col-' + colIndex);
         let cells = document.querySelectorAll('.col-' + colIndex);
 
+        // Verificar si la columna está seleccionada
         let isSelected = header.classList.contains('selected');
 
         if (isSelected) {
+            // Si está seleccionada, deseleccionar solo la columna actual
             header.classList.remove('selected');
             cells.forEach(cell => cell.classList.remove('selected'));
+
+            // Deseleccionar las metas de alineamiento correspondientes
+            cells.forEach(cell => {
+                if (cell.textContent.trim() === 'P') {
+                    let rowIndex = cell.parentNode.rowIndex - 1;
+                    let metaAlineamiento = document.querySelector('tbody').children[rowIndex].querySelector('td:first-child');
+                    if (metaAlineamiento) {
+                        metaAlineamiento.classList.remove('meta-selected');
+                    }
+                }
+            });
         } else {
+            // Si no está seleccionada, seleccionar toda la columna
             header.classList.add('selected');
             cells.forEach(cell => cell.classList.add('selected'));
+
+            // Seleccionar las metas de alineamiento correspondientes
+            cells.forEach(cell => {
+                if (cell.textContent.trim() === 'P') {
+                    let rowIndex = cell.parentNode.rowIndex - 1;
+                    let metaAlineamiento = document.querySelector('tbody').children[rowIndex].querySelector('td:first-child');
+                    if (metaAlineamiento) {
+                        metaAlineamiento.classList.add('meta-selected');
+                    }
+                }
+            });
         }
     }
 </script>
 
 <style>
     .selected {
-        background-color: darkslategrey !important; 
+        background-color: darkslategrey !important; /* Color de fondo para las celdas 'P' seleccionadas */
+        color: white; /* Color del texto para las celdas 'P' seleccionadas */
+    }
+
+    .meta-selected {
+        background-color: lightblue !important; /* Color de fondo para las metas de alineamiento seleccionadas */
     }
 
     th {
-        cursor: pointer;
+        cursor: pointer; /* Cambia el cursor a pointer en las columnas seleccionables */
     }
 
-    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-        background-color: #f5f5f5;
+    .table-hover tbody tr:hover td,
+    .table-hover tbody tr:hover th {
+        background-color: #f5f5f5; /* Color de fondo al hacer hover en las filas */
     }
 </style>

@@ -1,9 +1,145 @@
 ﻿@page "/tablas"
+@using Cobit19.Data
+@inject MetasAlineamientoService metasalineamientoService
+@attribute [Authorize(Roles = "Auditor")]
 
-<h3>Tablas de objetivo empresarial y de alineamiento</h3>
 
-<a>En proceso...</a>
+<NavLink class="nav-link" href="/agregarAlineamiento">
+    <span class="oi oi-plus" aria-hidden="true"></span> Añadir Objetivo de gobierno
+</NavLink>
+<h1>Relacionamiento de objetivos de gobierno y Metas de Alineamiento</h1>
+
+@if (Lista is null)
+{
+    <p><em>Ingrese una meta de alineamiento</em></p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Meta Gubernamental</th>
+                    <th class="header-col-1 " onclick="selectColumn(1)">Cumplimiento y soporte de I&T</th>
+                    <th class="header-col-2 " onclick="selectColumn(2)">Gestión de riesgo relacionado con I&T</th>
+                    <th class="header-col-3 " onclick="selectColumn(3)">Beneficios obtenidos del portafolio de inversiones</th>
+                    <th class="header-col-4 " onclick="selectColumn(4)">Calidad de la información financiera</th>
+                    <th class="header-col-5 " onclick="selectColumn(5)">Prestación de servicios de I&T</th>
+                    <th class="header-col-6 " onclick="selectColumn(6)">Agilidad para convertir los requisitos</th>
+                    <th class="header-col-7 " onclick="selectColumn(7)">Seguridad de la información</th>
+                    <th class="header-col-8 " onclick="selectColumn(8)">Habilidad y dar soporte a procesos de negocio</th>
+                    <th class="header-col-9 " onclick="selectColumn(9)">Ejecución de programas dentro del plazo</th>
+                    <th class="header-col-10" onclick="selectColumn(10)">Calidad de la información sobre gestión de I&T</th>
+                    <th class="header-col-11 " onclick="selectColumn(11)">Cumplimiento de I&T con las políticas internas</th>
+                    <th class="header-col-12 " onclick="selectColumn(12)">Personal competente y motivado</th>
+                    <th class="header-col-13 " onclick="selectColumn(13)">Conocimiento, experiencia e iniciativas</th>
+                    <th>Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var meta in Lista)
+                {
+                    <tr>
+                        <td>@meta.MetaGobierno</td>
+                        <td class="col-1 ">@meta.AG01</td>
+                        <td class="col-2 ">@meta.AG02</td>
+                        <td class="col-3 ">@meta.AG03</td>
+                        <td class="col-4 ">@meta.AG04</td>
+                        <td class="col-5 ">@meta.AG05</td>
+                        <td class="col-6 ">@meta.AG06</td>
+                        <td class="col-7">@meta.AG07</td>
+                        <td class="col-8 ">@meta.AG08</td>
+                        <td class="col-9 ">@meta.AG09</td>
+                        <td class="col-10 ">@meta.AG10</td>
+                        <td class="col-11 ">@meta.AG11</td>
+                        <td class="col-12">@meta.AG12</td>
+                        <td class="col-13 ">@meta.AG13</td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <a href="/editarTablaAlineamiento/@meta.Id">
+                                    <span class="oi oi-pencil" aria-hidden="true"></span> Editar
+                                </a>
+                                <a href="/eliminarTablaAlineamiento/@meta.Id">
+                                    <span class="oi oi-trash" aria-hidden="true"></span> Eliminar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
 
 @code {
-
+    List<MetasAlineamiento> Lista;
+    protected override async Task OnInitializedAsync()
+    {
+        Lista = await Task.Run(() => metasalineamientoService.GetMetasAlineamientosAsync());
+    }
 }
+
+<script>
+    function selectColumn(colIndex) {
+        let header = document.querySelector('.header-col-' + colIndex);
+        let cells = document.querySelectorAll('.col-' + colIndex);
+
+        // Verificar si la columna está seleccionada
+        let isSelected = header.classList.contains('selected');
+
+        if (isSelected) {
+            // Si está seleccionada, deseleccionar solo la columna actual
+            header.classList.remove('selected');
+            cells.forEach(cell => cell.classList.remove('selected'));
+
+            // Deseleccionar las metas de alineamiento correspondientes
+            cells.forEach(cell => {
+                if (cell.textContent.trim() === 'P') {
+                    let rowIndex = cell.parentNode.rowIndex - 1;
+                    let metaAlineamiento = document.querySelector('tbody').children[rowIndex].querySelector('td:first-child');
+                    if (metaAlineamiento) {
+                        metaAlineamiento.classList.remove('meta-selected');
+                    }
+                }
+            });
+        } else {
+            // Si no está seleccionada, seleccionar toda la columna
+            header.classList.add('selected');
+            cells.forEach(cell => cell.classList.add('selected'));
+
+            // Seleccionar las metas de alineamiento correspondientes
+            cells.forEach(cell => {
+                if (cell.textContent.trim() === 'P') {
+                    let rowIndex = cell.parentNode.rowIndex - 1;
+                    let metaAlineamiento = document.querySelector('tbody').children[rowIndex].querySelector('td:first-child');
+                    if (metaAlineamiento) {
+                        metaAlineamiento.classList.add('meta-selected');
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+<style>
+    .selected {
+        background-color: darkslategrey !important; /* Color de fondo para las celdas 'P' seleccionadas */
+        color: white; /* Color del texto para las celdas 'P' seleccionadas */
+    }
+
+    .meta-selected {
+        background-color: lightblue !important; /* Color de fondo para las metas de alineamiento seleccionadas */
+    }
+
+    th {
+        cursor: pointer; /* Cambia el cursor a pointer en las columnas seleccionables */
+    }
+
+    .table-hover tbody tr:hover td,
+    .table-hover tbody tr:hover th {
+        background-color: #f5f5f5; /* Color de fondo al hacer hover en las filas */
+    }
+</style>

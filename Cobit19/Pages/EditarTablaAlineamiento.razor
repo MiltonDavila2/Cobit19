@@ -1,6 +1,6 @@
-﻿@page "/editarTablaEmpresarial/{id}"
+﻿@page "/editarTablaAlineamiento/{id}"
 @using Cobit19.Data
-@inject MetasEmpresarialesService metasempresarialesService
+@inject MetasAlineamientoService metasalineamientoService
 @inject NavigationManager NavigationManager
 
 <h2>Editar tabla</h2>
@@ -11,8 +11,8 @@
     <div class="row">
         <div class="col-sm-8">
             <div class="form-group">
-                <label for="EG01" class="control-label">Portafolio de productos y servicios competitivos</label>
-                <select @bind="@obj.EG01" class="form-control">
+                <label for="AG01" class="control-label">Cumplimiento y soporte de I&T</label>
+                <select @bind="@obj.AG01" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -20,8 +20,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG02" class="control-label">Gestión de riesgo de negocio</label>
-                <select @bind="@obj.EG02" class="form-control">
+                <label for="AG02" class="control-label">Gestión de riesgo relacionado con I&T</label>
+                <select @bind="@obj.AG02" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -29,8 +29,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG03" class="control-label">Cumplimiento con las leyes y regulaciones externas</label>
-                <select @bind="@obj.EG03" class="form-control">
+                <label for="EG03" class="control-label">Beneficios obtenidos del portafolio de inversiones</label>
+                <select @bind="@obj.AG03" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <label for="EG04" class="control-label">Calidad de la información financiera</label>
-                <select @bind="@obj.EG04" class="form-control">
+                <select @bind="@obj.AG04" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -47,8 +47,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG05" class="control-label">Cultura de servicio orientada al cliente</label>
-                <select @bind="@obj.EG05" class="form-control">
+                <label for="EG05" class="control-label">Prestación de servicios de I&T</label>
+                <select @bind="@obj.AG05" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -56,8 +56,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG06" class="control-label">Continuidad y disponibilidad del servicio del negocio</label>
-                <select @bind="@obj.EG06" class="form-control">
+                <label for="EG06" class="control-label">Agilidad para convertir los requisitos</label>
+                <select @bind="@obj.AG06" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -65,8 +65,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG07" class="control-label">Portafolio de productos y servicios competitivos</label>
-                <select @bind="@obj.EG07" class="form-control">
+                <label for="EG07" class="control-label">Seguridad de la información</label>
+                <select @bind="@obj.AG07" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -74,8 +74,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG08" class="control-label">Calidad de la información sobre gestión</label>
-                <select @bind="@obj.EG08" class="form-control">
+                <label for="EG08" class="control-label">Habilidad y dar soporte a procesos de negocio</label>
+                <select @bind="@obj.AG08" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -83,8 +83,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG09" class="control-label">Optimización de la funcionalidad de procesos</label>
-                <select @bind="@obj.EG09" class="form-control">
+                <label for="EG09" class="control-label">Ejecución de programas dentro del plazo</label>
+                <select @bind="@obj.AG09" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -92,8 +92,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG10" class="control-label">Habilidades, motivación y productividad del personal</label>
-                <select @bind="@obj.EG10" class="form-control">
+                <label for="EG10" class="control-label">Calidad de la información sobre gestión de I&T</label>
+                <select @bind="@obj.AG10" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -101,8 +101,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG11" class="control-label">Cumplimiento de las políticas internas</label>
-                <select @bind="@obj.EG11" class="form-control">
+                <label for="EG11" class="control-label">Cumplimiento de I&T con las políticas internas</label>
+                <select @bind="@obj.AG11" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -110,8 +110,8 @@
             </div>
 
             <div class="form-group">
-                <label for="EG12" class="control-label">Gestión de programas de transformación digital</label>
-                <select @bind="@obj.EG12" class="form-control">
+                <label for="EG12" class="control-label">Personal competente y motivado</label>
+                <select @bind="@obj.AG12" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -120,8 +120,8 @@
 
 
             <div class="form-group">
-                <label for="EG13" class="control-label">Innovación de productos y negocios</label>
-                <select @bind="@obj.EG13" class="form-control">
+                <label for="EG13" class="control-label">Conocimiento, experiencia e iniciativas</label>
+                <select @bind="@obj.AG13" class="form-control">
                     <option value="">Vacio</option>
                     <option value="P">Primario</option>
                     <option value="S">Secundario</option>
@@ -133,37 +133,38 @@
     <div class="row mt-5">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="button" class="btn btn-primary" @onclick="@ActualizarMetasEmpresarialAqui" value="Actualizar"/>
+                <input type="button" class="btn btn-primary" @onclick="@ActualizarMetasEmpresarialAqui" value="Actualizar" />
                 <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancelar" />
             </div>
         </div>
     </div>
 </form>
 
-
 @code {
 
     [Parameter]
     public string Id { get; set; }
-    MetasEmpresariales obj = new MetasEmpresariales();
+    MetasAlineamiento obj = new MetasAlineamiento();
 
     protected override async Task OnInitializedAsync()
     {
 
-        obj= await Task.Run(()=> metasempresarialesService.GetMetasEmpresarialesAsync(Convert.ToInt32(Id)));
+
+
+        obj = await Task.Run(() => metasalineamientoService.GetMetasAlineamiento(Convert.ToInt32(Id)));
 
 
     }
 
     protected async void ActualizarMetasEmpresarialAqui()
     {
-        await metasempresarialesService.ActualizarMetaEmpresarial(obj);
-        NavigationManager.NavigateTo("Evaluar");
+        await metasalineamientoService.ActualizarMetasAlineamiento(obj);
+        NavigationManager.NavigateTo("Tablas");
     }
 
     void Cancel()
     {
-        NavigationManager.NavigateTo("Evaluar");
+        NavigationManager.NavigateTo("Tablas");
     }
 
 }
